@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const URL = process.env.DB_ATLAS_URL;
-
+console.log(URL)
 mongoose.connect(URL)
     .then( () => {
         console.log('Connected to the database ')

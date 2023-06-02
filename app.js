@@ -1,15 +1,18 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const cors = require("cors")
-const indexRouter = require('./routes/index');
-const watchListRoutes = require('./routes/watch.route');
-require("dotenv").config()
+import createHttpError from 'http-errors';
+import express from "express";
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import {default as logger} from 'morgan';
+import cors from "cors";
+import {default as indexRouter} from "./routes";
+import {default as watchListRoutes } from "./routes/watch.route";
+import * as dotenv from "dotenv";
+dotenv.config()
 require("./db")
 const app = express();
 const PORT = 4001;
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -30,7 +33,7 @@ app.use('/api/v1/movies', watchListRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  next(createHttpError(404));
 });
 
 // error handler

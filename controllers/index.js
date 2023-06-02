@@ -1,4 +1,4 @@
-const { checkWatchList, addTowatchList } = require("./watchlist.controllers");
+import { checkWatchList, addTowatchList } from "./watchlist.controllers"
 
 module.exports = {
   checkWatchList,

@@ -1,6 +1,7 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const { checkWatchList , addTowatchList } = require("../controllers")
+import { checkWatchList , addTowatchList } from "../controllers"
+
 
 /* GET users listing. */
 

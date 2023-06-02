@@ -1,4 +1,4 @@
-const { watchListModel } = require("../models");
+import { watchListModel } from "../models";
 
 module.exports.addTowatchList = (req, res, next) => {
   const { movieId } = req.body;
