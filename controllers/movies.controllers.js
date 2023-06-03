@@ -32,7 +32,8 @@ module.exports.allMovies = (req, res, next) => {
           original_title: movie.original_title,
           overview: movie.overview,
           poster_path: movie.poster_path,
-          id: movie.id
+          id: movie.id,
+          original_language: movie.original_language
         });
       }
       return res
@@ -52,7 +53,17 @@ module.exports.movieDetails = (req, res, next) => {
         `${movieId}?api_key=${process.env.TMDB_API_KEY}`
     )
     .then((result) => {
-      return res.status(200).send({ result: result.data });
+      const movieDetails = {
+        vote_average: result.data.vote_average,
+        release_date: result.data.release_date,
+        original_title: result.data.original_title,
+        original_language: result.data.original_language,
+        popularity: result.data.popularity,
+        overview: result.data.overview,
+        poster_path: result.data.poster_path,
+        id: result.data.id
+      }
+      return res.status(200).send({ result: movieDetails });
     })
     .catch((err) => {
       return res.status(400).send({ msg: "Oops Something Went Wrong" });

@@ -2,7 +2,7 @@ import { watchListModel } from "../models";
 
 module.exports.addTowatchList = async (req, res, next) => {
   const { id } = req.body;
-  const movie = watchListModel.findOne({ id: id });
+  const movie = await watchListModel.findOne({ id: id });
 
   if (movie) {
     return res.status(400).send({ msg: "Movie already exists" });
@@ -21,7 +21,7 @@ module.exports.addTowatchList = async (req, res, next) => {
     });
 };
 
-module.exports.checkWatchList = (req, res, next) => {
+module.exports.checkWatchList = async (req, res, next) => {
   const { movieId } = req.params;
 
   watchListModel
