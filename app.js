@@ -1,3 +1,5 @@
+import * as dotenv from "dotenv";
+dotenv.config()
 import createHttpError from 'http-errors';
 import express from "express";
 import path from 'path';
@@ -6,8 +8,8 @@ import {default as logger} from 'morgan';
 import cors from "cors";
 import {default as indexRouter} from "./routes";
 import {default as watchListRoutes } from "./routes/watch.route";
-import * as dotenv from "dotenv";
-dotenv.config()
+import {default as moviesRoutes} from "./routes/movies.route";
+
 require("./db")
 const app = express();
 const PORT = 4001;
@@ -30,6 +32,7 @@ app.use(
 );
 app.use('/', indexRouter);
 app.use('/api/v1/movies', watchListRoutes);
+app.use('/api/v1/tmdb/movies', moviesRoutes)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
