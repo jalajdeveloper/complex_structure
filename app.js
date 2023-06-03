@@ -9,14 +9,33 @@ import cors from "cors";
 import {default as indexRouter} from "./routes";
 import {default as watchListRoutes } from "./routes/watch.route";
 import {default as moviesRoutes} from "./routes/movies.route";
+import cluster from "node:cluster";
+import os from 'os';
 
 require("./db")
 const app = express();
 const PORT = 4001;
 
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
+
+
+
+
+
+if (cluster.isPrimary) {
+  const numCPUs = os.cpus().length;
+
+  // Fork worker processes
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('online', (worker) => {
+    console.log(`Worker ${worker.process.pid} is online`);
+  });
+} else {
+
+  app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
@@ -53,5 +72,7 @@ app.use(function(err, req, res, next) {
 app.listen(PORT,() =>{
   console.log("CONNECTED TO SERVER" , PORT)
 })
+}
+
 
 module.exports = app;
