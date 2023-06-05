@@ -12,7 +12,7 @@ import {default as moviesRoutes} from "./routes/movies.route";
 import cluster from "node:cluster";
 import os from 'os';
 
-require("./db")
+import("./db")
 const app = express();
 const PORT = 4001;
 
