@@ -22,7 +22,9 @@ Launches the test runner in the interactive watch mode.\
 
 
 ## Architectural decisions
-There is two apis one is post api with /add-to-watch-list with end point where by sending the movie id in request it save's it in the db and other is get api with end point /check-watch-list/:movieId where user can check in movie exist in watched list or not.
+In order to handle 1000 requests per-second i used inbuild node module which is cluster . what it'll do is that it'll create the chid processes acoording to the number of cores of cpus.
 
 ## Design assumptions made
 I made assumption that i should use get api to check in movie exist in watch list or not.
+
+
