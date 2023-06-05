@@ -6,7 +6,6 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import {default as logger} from 'morgan';
 import cors from "cors";
-import {default as indexRouter} from "./routes";
 import {default as watchListRoutes } from "./routes/watch.route";
 import {default as moviesRoutes} from "./routes/movies.route";
 import cluster from "node:cluster";
@@ -47,10 +46,14 @@ app.use(
     credentials: true,
   })
 );
-app.use('/', indexRouter);
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/api/v1/movies', watchListRoutes);
 app.use('/api/v1/tmdb/movies', moviesRoutes)
-
+app.get("/",(req,res) =>
+  res.send({msg: "Welcome To Express"})
+)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createHttpError(404));
